@@ -54,7 +54,7 @@ class Server:
                 break
         meta = {
             'index': index,
-            'next_index': index + page_size,
+            'next_index': index + i,
             'page_size': page_size,
             'data': data
         }
