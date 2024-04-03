@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""FIFOCache Module"""
+"""FIFOCache Module """
 from functools import wraps
 BaseCaching = __import__('base_caching').BaseCaching
 
