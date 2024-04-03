@@ -6,7 +6,7 @@ BaseCaching = __import__('base_caching').BaseCaching
 
 
 def trackKeys(func):
-    """tracks items added to a dictionary from most recent to least recent
+    """tracks items added to a que and ensure it does not exceed cache size
     """
 
     @wraps(func)
