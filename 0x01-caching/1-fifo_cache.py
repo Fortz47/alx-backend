@@ -23,7 +23,6 @@ def trackKeys(func):
 
 class FIFOCache(BaseCaching):
     """inherits from BaseCaching and is a caching system"""
-    count = 0
     trackItems = None
 
     def __init__(self):
