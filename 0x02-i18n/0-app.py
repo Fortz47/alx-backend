@@ -5,7 +5,7 @@ from flask import Flask
 app = Flash(__name__)
 
 @app.route('/', strict_slashes=False)
-def hello():
+def hello() -> str:
     """outputs welcome message"""
     return render_template('index.html')
 
