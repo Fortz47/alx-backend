@@ -45,7 +45,7 @@ def get_locale() -> str:
 @app.route('/', strict_slashes=False)
 def hello() -> str:
     """ outputs welcome message with rendered template """
-    return render_template('5-index.html')
+    return render_template('6-index.html')
 
 
 def get_user() -> Optional[Dict]:

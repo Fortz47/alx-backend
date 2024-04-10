@@ -1,10 +1,16 @@
 #!/usr/bin/env python3
 """ A simple flask app Module """
-from flask import Flask, render_template, request, g
-from flask_babel import Babel
+from flask import (
+        Flask,
+        render_template,
+        request,
+        g
+    )
+from flask_babel import Babel, format_datetime
 from typing import Optional, Dict
 from pytz import timezone
 import pytz.exceptions
+from datetime import datetime
 
 
 app = Flask(__name__)
@@ -42,10 +48,10 @@ def get_locale() -> str:
 
 
 @babel.timezoneselector
-def get_timezne() -> str:
+def get_timezone() -> str:
     """retrieve timezone"""
     timezone_options = [
-        requests.args.get('timezone', '').strip(),
+        request.args.get('timezone', '').strip(),
         g.user.get('timezone') if g.user else None,
     ]
 
@@ -60,13 +66,17 @@ def get_timezne() -> str:
     return tz
 
 
-# babel = Babel(app, locale_selector=get_locale)
+# babel = Babel(
+#        app,
+#        locale_selector=get_locale,
+#        timezone_selector=get_timezone
+#    )
 
 
 @app.route('/', strict_slashes=False)
 def hello() -> str:
     """ outputs welcome message with rendered template """
-    return render_template('7-index.html')
+    return render_template('index.html')
 
 
 def get_user() -> Optional[Dict]:
@@ -86,6 +96,7 @@ def before_request() -> None:
     """
     user = get_user()
     g.user = user
+    setattr(g, 'current_time', format_datetime(datetime.now()))
 
 
 if __name__ == "__main__":
