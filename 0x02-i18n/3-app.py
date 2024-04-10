@@ -5,7 +5,7 @@ from flask_babel import Babel, _
 
 
 app = Flask(__name__)
-babel = Babel(app)
+# babel = Babel(app)
 
 
 class Config:
@@ -18,15 +18,18 @@ class Config:
 app.config.from_object(Config)
 
 
-@babel.localeselector
 def get_locale():
     """determines best match from supported languages"""
     return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 
+babel = Babel(app, locale_selector=get_locale)    
+
+
 @app.route('/', strict_slashes=False)
 def hello() -> str:
     """outputs welcome message"""
+    # get_locale()
     return render_template(
         '3-index.html',
         title=_("home_title"),
