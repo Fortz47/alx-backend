@@ -30,7 +30,6 @@ def get_locale() -> str:
 @app.route('/', strict_slashes=False)
 def hello() -> str:
     """outputs welcome message"""
-    # get_locale()
     return render_template('3-index.html')
 
 
