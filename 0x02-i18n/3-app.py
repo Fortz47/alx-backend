@@ -31,11 +31,7 @@ def get_locale() -> str:
 def hello() -> str:
     """outputs welcome message"""
     # get_locale()
-    return render_template(
-        '3-index.html',
-        title=_("home_title"),
-        header=_("home_header")
-    )
+    return render_template('3-index.html')
 
 
 if __name__ == "__main__":
