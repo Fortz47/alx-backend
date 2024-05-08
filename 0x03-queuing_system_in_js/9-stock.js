@@ -31,13 +31,12 @@ async function getCurrentReservedStockById(itemId) {
 	return stock;
 }
 
-// initialize currentQuantity with initialAvailableQuantity in db
 listProducts.forEach((product) => {
 	reserveStockById(product.itemId, product.initialAvailableQuantity);
 });
 
 app.get('/list_products', (req, res) => {
-	res.end(JSON.stringify(listProducts));
+	res.json(listProducts);
 });
 
 app.get('/list_products/:itemId', async (req, res) => {
@@ -46,9 +45,9 @@ app.get('/list_products/:itemId', async (req, res) => {
 	res.setHeader('Content-Type', 'application/json');
 	if (item) {
 		item.currentQuantity = parseInt(await getCurrentReservedStockById(itemId));
-		res.end(JSON.stringify(item));
+		res.json(item);
 	} else {
-		res.end(JSON.stringify({status: 'Product not found'}));
+		res.json({status: 'Product not found'});
 	}
 });
 
@@ -61,13 +60,13 @@ app.get('/reserve_product/:itemId', (req, res) => {
 			.then((stock) => {
 				if (stock > 0) {
 					reserveStockById(itemId, stock - 1);
-					res.end(JSON.stringify({status: 'Reservation confirmed', itemId: itemId}));
+					res.json({status: 'Reservation confirmed', itemId: itemId});
 				} else {
-					res.end(JSON.stringify({status: 'Not enough stock available', itemId: itemId}));
+					res.json({status: 'Not enough stock available', itemId: itemId});
 				}
 			});
 	} else {
-		res.end(JSON.stringify({status: 'Product not found'}));
+		res.json({status: 'Product not found'});
 	}
 });
 
